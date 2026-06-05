@@ -10,9 +10,11 @@ FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
 COPY artifacts/api-server/package.json artifacts/api-server/
-COPY artifacts/api-zod/package.json artifacts/api-zod/
 COPY artifacts/bros/package.json artifacts/bros/
 COPY lib/db/package.json lib/db/
+COPY lib/api-zod/package.json lib/api-zod/
+COPY lib/api-client-react/package.json lib/api-client-react/
+COPY lib/api-spec/package.json lib/api-spec/
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # Build the application
@@ -21,9 +23,10 @@ WORKDIR /app
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/artifacts/api-server/node_modules ./artifacts/api-server/node_modules
-COPY --from=deps /app/artifacts/api-zod/node_modules ./artifacts/api-zod/node_modules
 COPY --from=deps /app/artifacts/bros/node_modules ./artifacts/bros/node_modules
 COPY --from=deps /app/lib/db/node_modules ./lib/db/node_modules
+COPY --from=deps /app/lib/api-zod/node_modules ./lib/api-zod/node_modules
+COPY --from=deps /app/lib/api-client-react/node_modules ./lib/api-client-react/node_modules
 
 # Set environment to production during build for optimizations
 ENV NODE_ENV=production
@@ -43,18 +46,18 @@ COPY --from=builder /app/lib/db ./lib/db
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/pnpm-workspace.yaml ./pnpm-workspace.yaml
 COPY --from=builder /app/artifacts/api-server/package.json ./artifacts/api-server/package.json
-COPY --from=builder /app/artifacts/api-zod/package.json ./artifacts/api-zod/package.json
 COPY --from=builder /app/artifacts/bros/package.json ./artifacts/bros/package.json
+COPY --from=builder /app/lib/db/package.json ./lib/db/package.json
+COPY --from=builder /app/lib/api-zod/package.json ./lib/api-zod/package.json
+COPY --from=builder /app/lib/api-client-react/package.json ./lib/api-client-react/package.json
 
-# Copy production dependencies (we run install again but only for production)
-# Alternatively, copy the node_modules from deps if they have been pruned.
-# For safety, we will just copy the entire builder node_modules, 
-# or reinstall production deps.
+# Copy production dependencies
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/artifacts/api-server/node_modules ./artifacts/api-server/node_modules
-COPY --from=builder /app/artifacts/api-zod/node_modules ./artifacts/api-zod/node_modules
 COPY --from=builder /app/artifacts/bros/node_modules ./artifacts/bros/node_modules
 COPY --from=builder /app/lib/db/node_modules ./lib/db/node_modules
+COPY --from=builder /app/lib/api-zod/node_modules ./lib/api-zod/node_modules
+COPY --from=builder /app/lib/api-client-react/node_modules ./lib/api-client-react/node_modules
 
 # Add the entrypoint script
 COPY docker-entrypoint.sh /usr/local/bin/
