@@ -30,7 +30,7 @@ COPY --from=deps /app/lib/api-client-react/node_modules ./lib/api-client-react/n
 
 # Set environment to production during build for optimizations
 ENV NODE_ENV=production
-RUN pnpm run build
+RUN pnpm --filter "@workspace/api-server" --filter "@workspace/bros" run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
