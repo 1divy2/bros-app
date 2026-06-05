@@ -41,7 +41,7 @@ if (process.env.NODE_ENV === "production") {
   
   // Assuming the build structure puts api-server/dist and bros/dist next to each other, or we reference it via workspace layout
   // In Docker, we will place the frontend in /app/public and backend in /app/dist
-  const publicDir = process.env.PUBLIC_DIR || path.join(__dirname, "../../../bros/dist/public");
+  const publicDir = process.env.PUBLIC_DIR || path.join(__dirname, "../../bros/dist/public");
   
   app.use(express.static(publicDir));
   
