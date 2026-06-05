@@ -4,8 +4,8 @@ import { fetchFileContent } from "./tree";
 export const dependencyAnalyzer: Analyzer<DependencyGraph> = {
   name: "dependencies",
   analyze: async (ctx: RepoContext, files: GithubTreeItem[]) => {
-    // 1. Process package.json files (cap at 20 to prevent hanging on massive monorepos)
-    const packageFiles = files.filter(f => f.type === "blob" && f.path.endsWith("package.json") && !f.path.includes("node_modules")).slice(0, 20);
+    // 1. Process package.json files (cap at 200 to prevent hanging on massive monorepos)
+    const packageFiles = files.filter(f => f.type === "blob" && f.path.endsWith("package.json") && !f.path.includes("node_modules")).slice(0, 200);
     
     const nodes: DependencyGraph["nodes"] = [];
     const edges: DependencyGraph["edges"] = [];
@@ -42,8 +42,8 @@ export const dependencyAnalyzer: Analyzer<DependencyGraph> = {
       }
     }
 
-    // 2. Process requirements.txt files (cap at 20)
-    const pyFiles = files.filter(f => f.type === "blob" && f.path.endsWith("requirements.txt")).slice(0, 20);
+    // 2. Process requirements.txt files (cap at 200)
+    const pyFiles = files.filter(f => f.type === "blob" && f.path.endsWith("requirements.txt")).slice(0, 200);
     for (const file of pyFiles) {
       const content = await fetchFileContent(ctx.owner, ctx.name, file.path);
       if (!content) continue;
