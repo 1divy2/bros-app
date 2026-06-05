@@ -1,0 +1,1041 @@
+openapi: 3.1.0
+info:
+  # Do not change the title, if the title changes, the import paths will be broken
+  title: Api
+  version: 0.1.0
+  description: brOS - Brain Operating System API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: repositories
+    description: Repository management and analysis
+  - name: intelligence
+    description: Intelligence module results
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /repositories:
+    get:
+      operationId: listRepositories
+      tags: [repositories]
+      summary: List all analyzed repositories
+      responses:
+        "200":
+          description: List of repositories
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Repository"
+    post:
+      operationId: createRepository
+      tags: [repositories]
+      summary: Submit a GitHub repository for analysis
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RepositoryInput"
+      responses:
+        "201":
+          description: Repository created and analysis queued
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repository"
+        "400":
+          description: Invalid repository URL
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}:
+    get:
+      operationId: getRepository
+      tags: [repositories]
+      summary: Get repository details and analysis status
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Repository details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Repository"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      operationId: deleteRepository
+      tags: [repositories]
+      summary: Remove a repository
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /repositories/{id}/architecture:
+    get:
+      operationId: getArchitecture
+      tags: [intelligence]
+      summary: Get architecture analysis results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Architecture analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArchitectureAnalysis"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/dependencies:
+    get:
+      operationId: getDependencies
+      tags: [intelligence]
+      summary: Get dependency graph data
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Dependency graph
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DependencyGraph"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/apis:
+    get:
+      operationId: getApiInventory
+      tags: [intelligence]
+      summary: Get discovered API endpoints
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: API inventory
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiInventory"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/databases:
+    get:
+      operationId: getDatabases
+      tags: [intelligence]
+      summary: Get database intelligence results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Database intelligence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DatabaseIntelligence"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/security:
+    get:
+      operationId: getSecurity
+      tags: [intelligence]
+      summary: Get security analysis results
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Security analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SecurityAnalysis"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/quality:
+    get:
+      operationId: getQuality
+      tags: [intelligence]
+      summary: Get code quality metrics
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Code quality metrics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QualityAnalysis"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/infrastructure:
+    get:
+      operationId: getInfrastructure
+      tags: [intelligence]
+      summary: Get infrastructure topology
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Infrastructure topology
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InfrastructureMap"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/cicd:
+    get:
+      operationId: getCicd
+      tags: [intelligence]
+      summary: Get CI/CD pipeline analysis
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: CI/CD analysis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CicdAnalysis"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/business-flows:
+    get:
+      operationId: getBusinessFlows
+      tags: [intelligence]
+      summary: Get discovered business flows
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Business flows
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BusinessFlow"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/knowledge-graph:
+    get:
+      operationId: getKnowledgeGraph
+      tags: [intelligence]
+      summary: Get knowledge graph nodes and edges
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Knowledge graph
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/KnowledgeGraph"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/docs:
+    get:
+      operationId: getDocs
+      tags: [intelligence]
+      summary: Get generated documentation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Generated docs
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GeneratedDocs"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /repositories/{id}/system-map:
+    get:
+      operationId: getSystemMap
+      tags: [intelligence]
+      summary: Get the living system command center map
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: System map data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SystemMap"
+        "404":
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+
+    RepositoryInput:
+      type: object
+      required: [url]
+      properties:
+        url:
+          type: string
+          description: GitHub repository URL
+
+    Repository:
+      type: object
+      required: [id, url, name, owner, status, createdAt]
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        owner:
+          type: string
+        description:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [queued, cloning, analyzing, complete, failed]
+        analysisProgress:
+          type: integer
+          description: Progress percentage 0-100
+        currentModule:
+          type: ["string", "null"]
+          description: Currently running module name
+        primaryLanguage:
+          type: ["string", "null"]
+        stars:
+          type: ["integer", "null"]
+        totalFiles:
+          type: ["integer", "null"]
+        totalLines:
+          type: ["integer", "null"]
+        defaultBranch:
+          type: ["string", "null"]
+        topics:
+          type: ["array", "null"]
+          items:
+            type: string
+        forks:
+          type: ["integer", "null"]
+        license:
+          type: ["string", "null"]
+        repoSize:
+          type: ["integer", "null"]
+        createdAt:
+          type: string
+        completedAt:
+          type: ["string", "null"]
+
+    GraphNode:
+      type: object
+      required: [id, label, type]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: {}
+
+    GraphEdge:
+      type: object
+      required: [source, target, type]
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        type:
+          type: string
+        weight:
+          type: ["number", "null"]
+        label:
+          type: ["string", "null"]
+
+    LanguageBreakdown:
+      type: object
+      required: [language, percentage, lines]
+      properties:
+        language:
+          type: string
+        percentage:
+          type: number
+        lines:
+          type: integer
+
+    ArchitectureAnalysis:
+      type: object
+      required: [pattern, confidenceScore, reasoning, layers, nodes, edges]
+      properties:
+        pattern:
+          type: string
+          enum: [monolith, modular-monolith, microservices, event-driven, layered, hexagonal, clean]
+        confidenceScore:
+          type: number
+        reasoning:
+          type: string
+        layers:
+          type: array
+          items:
+            type: object
+            required: [name, components]
+            properties:
+              name:
+                type: string
+              components:
+                type: array
+                items:
+                  type: string
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        languages:
+          type: array
+          items:
+            $ref: "#/components/schemas/LanguageBreakdown"
+        totalFiles:
+          type: ["integer", "null"]
+        totalLines:
+          type: ["integer", "null"]
+
+    DependencyNode:
+      type: object
+      required: [id, name, version, type, size]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+        type:
+          type: string
+          enum: [internal, external, dev, peer]
+        size:
+          type: integer
+          description: Number of dependents
+        circular:
+          type: boolean
+        unused:
+          type: boolean
+        vulnerabilities:
+          type: integer
+
+    DependencyEdge:
+      type: object
+      required: [source, target]
+      properties:
+        source:
+          type: string
+        target:
+          type: string
+        circular:
+          type: boolean
+
+    DependencyGraph:
+      type: object
+      required: [nodes, edges, circularCount, unusedCount, totalExternal, totalInternal]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/DependencyNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/DependencyEdge"
+        circularCount:
+          type: integer
+        unusedCount:
+          type: integer
+        totalExternal:
+          type: integer
+        totalInternal:
+          type: integer
+
+    ApiEndpoint:
+      type: object
+      required: [id, method, path, type, authenticated]
+      properties:
+        id:
+          type: string
+        method:
+          type: string
+          enum: [GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD]
+        path:
+          type: string
+        type:
+          type: string
+          enum: [REST, GraphQL, WebSocket]
+        authenticated:
+          type: boolean
+        description:
+          type: ["string", "null"]
+        requestSchema:
+          type: ["string", "null"]
+        responseSchema:
+          type: ["string", "null"]
+        tags:
+          type: array
+          items:
+            type: string
+
+    ApiInventory:
+      type: object
+      required: [endpoints, totalCount, restCount, graphqlCount, websocketCount, authenticatedCount]
+      properties:
+        endpoints:
+          type: array
+          items:
+            $ref: "#/components/schemas/ApiEndpoint"
+        totalCount:
+          type: integer
+        restCount:
+          type: integer
+        graphqlCount:
+          type: integer
+        websocketCount:
+          type: integer
+        authenticatedCount:
+          type: integer
+
+    DbTable:
+      type: object
+      required: [id, name, columns, relationships]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        columns:
+          type: array
+          items:
+            type: object
+            required: [name, type, nullable]
+            properties:
+              name:
+                type: string
+              type:
+                type: string
+              nullable:
+                type: boolean
+              primaryKey:
+                type: boolean
+              foreignKey:
+                type: boolean
+        relationships:
+          type: array
+          items:
+            type: object
+            required: [targetTable, type]
+            properties:
+              targetTable:
+                type: string
+              type:
+                type: string
+                enum: [one-to-one, one-to-many, many-to-many]
+
+    DatabaseIntelligence:
+      type: object
+      required: [tables, nodes, edges, databaseType, totalTables, totalRelationships]
+      properties:
+        tables:
+          type: array
+          items:
+            $ref: "#/components/schemas/DbTable"
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        databaseType:
+          type: string
+        totalTables:
+          type: integer
+        totalRelationships:
+          type: integer
+
+    SecurityFinding:
+      type: object
+      required: [id, severity, category, title, description, location]
+      properties:
+        id:
+          type: string
+        severity:
+          type: string
+          enum: [critical, high, medium, low, info]
+        category:
+          type: string
+          enum: [hardcoded-secret, weak-auth, missing-validation, exposed-credential, unsafe-endpoint, dependency-vulnerability, other]
+        title:
+          type: string
+        description:
+          type: string
+        location:
+          type: string
+        mitigation:
+          type: ["string", "null"]
+
+    SecurityAnalysis:
+      type: object
+      required: [findings, riskScore, criticalCount, highCount, mediumCount, lowCount]
+      properties:
+        findings:
+          type: array
+          items:
+            $ref: "#/components/schemas/SecurityFinding"
+        riskScore:
+          type: number
+          description: Risk score 0-100 (100 = highest risk)
+        criticalCount:
+          type: integer
+        highCount:
+          type: integer
+        mediumCount:
+          type: integer
+        lowCount:
+          type: integer
+
+    QualityMetric:
+      type: object
+      required: [file, complexity, maintainabilityIndex, issues]
+      properties:
+        file:
+          type: string
+        complexity:
+          type: integer
+        maintainabilityIndex:
+          type: number
+        issues:
+          type: array
+          items:
+            type: object
+            required: [type, message, line]
+            properties:
+              type:
+                type: string
+                enum: [code-smell, dead-code, large-method, large-class, duplicate]
+              message:
+                type: string
+              line:
+                type: integer
+
+    QualityAnalysis:
+      type: object
+      required: [overallScore, metrics, complexityDistribution, hotspots]
+      properties:
+        overallScore:
+          type: number
+        metrics:
+          type: array
+          items:
+            $ref: "#/components/schemas/QualityMetric"
+        complexityDistribution:
+          type: array
+          items:
+            type: object
+            required: [range, count]
+            properties:
+              range:
+                type: string
+              count:
+                type: integer
+        hotspots:
+          type: array
+          items:
+            type: object
+            required: [file, score, issues]
+            properties:
+              file:
+                type: string
+              score:
+                type: number
+              issues:
+                type: integer
+
+    InfrastructureNode:
+      type: object
+      required: [id, name, type, technology]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [container, service, database, network, loadbalancer, storage, queue, registry]
+        technology:
+          type: string
+        replicas:
+          type: ["integer", "null"]
+        ports:
+          type: array
+          items:
+            type: integer
+
+    InfrastructureMap:
+      type: object
+      required: [nodes, edges, hasDocker, hasKubernetes, hasTerraform, hasHelm]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/InfrastructureNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        hasDocker:
+          type: boolean
+        hasKubernetes:
+          type: boolean
+        hasTerraform:
+          type: boolean
+        hasHelm:
+          type: boolean
+
+    PipelineStage:
+      type: object
+      required: [id, name, type, avgDurationMs, successRate]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        type:
+          type: string
+          enum: [build, test, lint, security, deploy, release, notify]
+        avgDurationMs:
+          type: integer
+        successRate:
+          type: number
+
+    CicdAnalysis:
+      type: object
+      required: [stages, buildSuccessRate, deployFrequency, avgBuildDurationMs, providers, nodes, edges]
+      properties:
+        stages:
+          type: array
+          items:
+            $ref: "#/components/schemas/PipelineStage"
+        buildSuccessRate:
+          type: number
+        deployFrequency:
+          type: number
+          description: Deployments per week
+        avgBuildDurationMs:
+          type: integer
+        providers:
+          type: array
+          items:
+            type: string
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+
+    FlowStep:
+      type: object
+      required: [id, name, service, type]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        service:
+          type: string
+        type:
+          type: string
+          enum: [entry, process, decision, external, exit]
+        description:
+          type: ["string", "null"]
+
+    BusinessFlow:
+      type: object
+      required: [id, name, description, steps, edges, complexity]
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        steps:
+          type: array
+          items:
+            $ref: "#/components/schemas/FlowStep"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        complexity:
+          type: integer
+
+    KnowledgeGraphNode:
+      type: object
+      required: [id, label, category, connections]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        category:
+          type: string
+          enum: [repository, service, api, class, method, database, pipeline, infrastructure]
+        connections:
+          type: integer
+        metadata:
+          type: object
+          additionalProperties: {}
+
+    KnowledgeGraph:
+      type: object
+      required: [nodes, edges, totalNodes, totalEdges]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/KnowledgeGraphNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        totalNodes:
+          type: integer
+        totalEdges:
+          type: integer
+
+    DocSection:
+      type: object
+      required: [id, title, type, content]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        type:
+          type: string
+          enum: [overview, architecture, api, database, deployment, onboarding]
+        content:
+          type: string
+
+    GeneratedDocs:
+      type: object
+      required: [sections, generatedAt]
+      properties:
+        sections:
+          type: array
+          items:
+            $ref: "#/components/schemas/DocSection"
+        generatedAt:
+          type: string
+
+    SystemMapNode:
+      type: object
+      required: [id, label, category, x, y, status]
+      properties:
+        id:
+          type: string
+        label:
+          type: string
+        category:
+          type: string
+          enum: [service, api, database, queue, cache, storage, gateway, external]
+        x:
+          type: number
+        y:
+          type: number
+        status:
+          type: string
+          enum: [healthy, degraded, unknown]
+        metadata:
+          type: object
+          additionalProperties: {}
+
+    SystemMap:
+      type: object
+      required: [nodes, edges, serviceCount, apiCount, databaseCount]
+      properties:
+        nodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/SystemMapNode"
+        edges:
+          type: array
+          items:
+            $ref: "#/components/schemas/GraphEdge"
+        serviceCount:
+          type: integer
+        apiCount:
+          type: integer
+        databaseCount:
+          type: integer

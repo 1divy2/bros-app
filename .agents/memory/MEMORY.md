@@ -1,0 +1,1 @@
+- [brOS architecture](bros-arch.md) — queryKey required in all module hooks; lib typecheck must run before API server typecheck after schema changes

@@ -1,0 +1,690 @@
+# Project Name: brOS
+
+## What brOS Is
+
+brOS (Brain Operating System) is a software intelligence platform that allows developers to instantly understand any codebase, architecture, deployment, API ecosystem, dependency graph, database structure, and development workflow.
+
+The goal is to create a platform that feels like an MRI machine for software systems.
+
+A developer should be able to paste a GitHub repository URL and gain a deep understanding of the entire project within minutes.
+
+This is not a chatbot.
+
+This is not a code viewer.
+
+This is not an AI wrapper.
+
+This is not another dashboard project.
+
+This is a software intelligence operating system.
+
+---
+
+# CRITICAL PRODUCT REQUIREMENTS
+
+The project MUST NOT contain:
+
+- AI slop
+- Generic SaaS layouts
+- Cookie-cutter dashboards
+- Generic sidebars
+- Generic admin templates
+- Empty cards
+- Fake metrics
+- Meaningless charts
+- Placeholder statistics
+- Landing page fluff
+- Random gradients with no purpose
+- ChatGPT-style assistant windows
+- "AI Powered" labels everywhere
+- Generic glassmorphism spam
+- Generic card grids
+
+Every visual component must exist because it solves a real problem.
+
+Every graph must visualize real relationships.
+
+Every animation must communicate information.
+
+Every metric must have business or engineering value.
+
+---
+
+# DESIGN PHILOSOPHY
+
+The interface should feel like:
+
+- Mission Control
+- Bloomberg Terminal
+- GitHub
+- Linear
+- Raycast
+- JetBrains IDEs
+- Chrome DevTools
+- Kubernetes dashboards
+- Security Operations Centers
+
+The UI should feel technical, intelligent, and purposeful.
+
+The platform should look like a tool senior engineers would actually use.
+
+---
+
+# DESIGN SYSTEM
+
+Use:
+
+- Deep dark theme
+- High information density
+- Strong typography
+- Subtle animations
+- Spatial navigation
+- Interactive diagrams
+
+Avoid:
+
+- Giant empty spaces
+- Marketing-style sections
+- Large hero sections
+- Fake enterprise landing pages
+- Oversized buttons
+- Consumer-app aesthetics
+
+The product should feel closer to a professional engineering workstation than a website.
+
+---
+
+# Core User Journey
+
+User enters:
+
+GitHub Repository URL
+
+Example:
+
+https://github.com/company/project
+
+System automatically:
+
+1. Clones repository
+2. Analyzes source code
+3. Maps architecture
+4. Detects services
+5. Detects APIs
+6. Detects databases
+7. Detects dependencies
+8. Detects infrastructure
+9. Generates diagrams
+10. Builds knowledge graph
+
+The result should feel like exploring the nervous system of software.
+
+---
+
+# Technology Stack
+
+Frontend
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- React Flow
+- D3.js
+- Recharts
+- Zustand
+- TanStack Query
+
+Backend
+
+- Java 21
+- Spring Boot 3
+
+Database
+
+- PostgreSQL
+
+Graph Database
+
+- Neo4j
+
+Cache
+
+- Redis
+
+Search
+
+- OpenSearch
+
+Messaging
+
+- Kafka
+
+Storage
+
+- MinIO
+
+Real-Time
+
+- WebSockets
+
+Containerization
+
+- Docker
+
+Orchestration
+
+- Kubernetes
+
+CI/CD
+
+- GitHub Actions
+
+Monitoring
+
+- Prometheus
+- Grafana
+
+Logging
+
+- Loki
+
+---
+
+# Module 1
+
+Repository Intelligence Engine
+
+Analyze:
+
+- Directories
+- Packages
+- Modules
+- Imports
+- Build files
+- Configuration files
+
+Supported Languages:
+
+- Java
+- TypeScript
+- JavaScript
+- Python
+- Go
+
+Outputs:
+
+- Repository structure map
+- Language breakdown
+- Complexity metrics
+- Module inventory
+
+---
+
+# Module 2
+
+Architecture Discovery Engine
+
+Automatically detect:
+
+- Monolith
+- Modular Monolith
+- Microservices
+- Event Driven Architecture
+- Layered Architecture
+- Hexagonal Architecture
+- Clean Architecture
+
+Generate:
+
+Architecture confidence score
+
+Architecture reasoning
+
+Architecture diagram
+
+Architecture report
+
+---
+
+# Module 3
+
+Dependency Intelligence
+
+Build a complete dependency graph.
+
+Analyze:
+
+- Internal dependencies
+- External dependencies
+- Circular dependencies
+- Dead dependencies
+- Unused packages
+
+Visualization:
+
+Interactive network graph
+
+Click any node
+
+Expand relationships
+
+View impact analysis
+
+---
+
+# Module 4
+
+API Intelligence
+
+Discover:
+
+- REST APIs
+- GraphQL APIs
+- WebSocket Endpoints
+
+Generate:
+
+- Endpoint inventory
+- Authentication requirements
+- Request schemas
+- Response schemas
+- Endpoint relationships
+
+Create a complete API explorer.
+
+---
+
+# Module 5
+
+Database Intelligence
+
+Detect:
+
+- Tables
+- Entities
+- Relationships
+- Indexes
+- Repositories
+
+Generate:
+
+Interactive ER diagrams
+
+Entity relationship explorer
+
+Query insights
+
+Database health analysis
+
+---
+
+# Module 6
+
+Business Flow Discovery
+
+This is the flagship feature.
+
+Automatically understand how software behaves.
+
+Example:
+
+Create Order
+
+↓
+
+Validate User
+
+↓
+
+Check Inventory
+
+↓
+
+Process Payment
+
+↓
+
+Send Notification
+
+↓
+
+Create Shipment
+
+Generate:
+
+Business flow diagrams
+
+Execution paths
+
+Dependency chains
+
+Service interactions
+
+The goal is to explain software behavior, not just code.
+
+---
+
+# Module 7
+
+Code Quality Intelligence
+
+Analyze:
+
+- Complexity
+- Maintainability
+- Code smells
+- Dead code
+- Large methods
+- Large classes
+- Duplicate logic
+
+Generate:
+
+Quality scores
+
+Refactoring opportunities
+
+Risk hotspots
+
+---
+
+# Module 8
+
+Security Intelligence
+
+Detect:
+
+- Hardcoded secrets
+- Weak authentication
+- Missing validation
+- Exposed credentials
+- Unsafe endpoints
+
+Generate:
+
+Security reports
+
+Risk scores
+
+Mitigation recommendations
+
+---
+
+# Module 9
+
+Documentation Engine
+
+Generate:
+
+- Project Overview
+- Architecture Docs
+- API Docs
+- Database Docs
+- Deployment Docs
+- Onboarding Docs
+
+Export:
+
+- Markdown
+- HTML
+- PDF
+
+---
+
+# Module 10
+
+CI/CD Intelligence
+
+Analyze:
+
+- GitHub Actions
+- GitLab CI
+- Jenkins Pipelines
+
+Visualize:
+
+- Build Success Rate
+- Build Failures
+- Deployment Frequency
+- Pipeline Bottlenecks
+
+Generate:
+
+Pipeline topology diagrams
+
+---
+
+# Module 11
+
+Infrastructure Intelligence
+
+Analyze:
+
+- Dockerfiles
+- Docker Compose
+- Kubernetes Manifests
+- Helm Charts
+- Terraform
+
+Generate:
+
+Infrastructure maps
+
+Container relationships
+
+Deployment topology
+
+Network visualization
+
+---
+
+# Module 12
+
+Observability Center
+
+Display:
+
+- Service Health
+- Error Rates
+- Request Volume
+- Latency Trends
+- Availability Metrics
+
+Everything should update in real time.
+
+---
+
+# Module 13
+
+Knowledge Graph Engine
+
+Store:
+
+- Repositories
+- Services
+- APIs
+- Classes
+- Methods
+- Databases
+- Pipelines
+- Infrastructure
+
+Everything becomes connected.
+
+Users can visually traverse relationships.
+
+This should feel like Google Maps for software systems.
+
+---
+
+# Module 14
+
+Pull Request Intelligence
+
+Analyze Pull Requests.
+
+Generate:
+
+- Change Impact Analysis
+- Risk Assessment
+- Dependency Impact
+- Security Concerns
+- Architecture Concerns
+
+---
+
+# Module 15
+
+Technical Debt Center
+
+Track:
+
+- Complexity Growth
+- Dependency Risks
+- Refactoring Candidates
+- Architectural Drift
+- Ownership Gaps
+
+---
+
+# Main Screens
+
+1. System Command Center
+
+The first screen.
+
+Not cards.
+
+Not dashboards.
+
+Create a living system map showing:
+
+- Services
+- APIs
+- Databases
+- Infrastructure
+
+All connected visually.
+
+This should be the signature experience.
+
+---
+
+2. Architecture Explorer
+
+Interactive architecture visualization.
+
+---
+
+3. Dependency Explorer
+
+Massive graph exploration system.
+
+---
+
+4. API Intelligence Center
+
+Complete API ecosystem.
+
+---
+
+5. Database Intelligence Center
+
+ER diagrams and relationship maps.
+
+---
+
+6. Security Operations Center
+
+Security analysis and risk tracking.
+
+---
+
+7. Infrastructure Center
+
+Deployment topology explorer.
+
+---
+
+8. CI/CD Control Room
+
+Pipeline intelligence.
+
+---
+
+9. Documentation Hub
+
+Generated documentation.
+
+---
+
+10. Knowledge Graph
+
+Interactive graph traversal system.
+
+---
+
+# Visual Expectations
+
+Most developer tools look like:
+
+Sidebar + Cards + Tables
+
+DO NOT DO THIS.
+
+Create:
+
+- Force-directed graphs
+- Relationship maps
+- Architecture diagrams
+- Dependency networks
+- Topology visualizations
+- Service maps
+- Flow diagrams
+
+The UI should feel alive.
+
+The software itself should be the visualization.
+
+---
+
+# DevOps Requirements
+
+Everything must run locally.
+
+Required:
+
+- Docker Compose
+- Kubernetes manifests
+- GitHub Actions
+- Health checks
+- Monitoring
+- Logging
+- Testing
+
+No paid APIs.
+
+No paid services.
+
+No proprietary dependencies.
+
+No external AI APIs.
+
+Everything should be self-contained and reproducible.
+
+---
+
+# Final Goal
+
+When someone opens brOS, the reaction should not be:
+
+"Nice dashboard."
+
+The reaction should be:
+
+"How did they build something that understands software this deeply?"
+
+The platform should feel like a next-generation engineering workstation that transforms repositories into interactive software intelligence systems.
+
+The end result should be unique, memorable, technically impressive, visually distinctive, and impossible to confuse with a generic AI SaaS template.
