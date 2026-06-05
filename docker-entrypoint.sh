@@ -9,7 +9,7 @@ fi
 
 echo "Running database migrations..."
 cd /app/lib/db
-npx drizzle-kit push
+npx drizzle-kit push --force
 
 echo "Database migrations completed. Starting application..."
 cd /app

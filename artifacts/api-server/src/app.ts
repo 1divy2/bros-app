@@ -46,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static(publicDir));
   
   // Catch-all route for client-side routing
-  app.get("*", (req, res) => {
+  app.get(/.*/, (req, res) => {
     if (!req.path.startsWith("/api")) {
       res.sendFile(path.join(publicDir, "index.html"));
     }
